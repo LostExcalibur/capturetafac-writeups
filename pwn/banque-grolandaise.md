@@ -9,6 +9,6 @@ Notre solde est évidemment un entier signé, puisqu'il est négatif. On peut es
         }
 ```
 
-Mais les entiers C ne peuvent représenter qu'un certain intervalle (de -2**31 à 2**31 - 1), et si on essaie de soustraire un trop gros nombre on obtient un nombre positif (ce qu'on appelle un integer underflow).
+Mais les entiers C ne peuvent représenter qu'un certain intervalle (de -2\*\*31 à 2\*\*31 - 1), et si on essaie de soustraire un trop gros nombre on obtient un nombre positif (ce qu'on appelle un integer underflow).
 
-Ainsi, en dépensant 2147483647 (2**31 - 1) puis une quantité quelconque comme 5, on aura underflow notre solde et il sera positif !
+Ainsi, en dépensant 2147483647 (2\*\*31 - 1) puis une quantité quelconque comme 5, on aura underflow notre solde et il sera positif !
