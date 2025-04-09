@@ -4,10 +4,15 @@
 Pour ce challenge, vous devez arriver à destination, mais le GPS ne semble pas vouloir comprendre ce que vous dites.
 
 ## Résolution
-On reçoit uniquement un fichier compilé, voyons voir comment il se décompile : ![Fichier décompilé](decompiled.png).
+On reçoit uniquement un fichier compilé, voyons voir comment il se décompile : 
+![Fichier décompilé](decompiled.png).
+
 On a un buffer de 48 octets, et un appel à `gets`. Buffer overflow donc.
 
-Qu'en faire ? Heureusement on voit qu'il y a une autre fonction que `main`, `muflin` : ![La fonction muflin](muflin.png), qui nous donne une shell. Le plan d'action est simple, il s'agit d'un simple ret2win (clin d'oeil le nom du challenge).
+Qu'en faire ? Heureusement on voit qu'il y a une autre fonction que `main`, `muflin` : 
+![La fonction muflin](muflin.png)
+
+qui nous donne une shell. Le plan d'action est simple, il s'agit d'un simple ret2win (clin d'oeil le nom du challenge).
 
 Voyons voir ce que checksec nous dit :
 ```
@@ -22,7 +27,11 @@ Voyons voir ce que checksec nous dit :
 Parfait, il n'y a aucune protection il devrait suffire d'envoyer la bonne adresse pour gagner.
 
 Avec gdb, on détermine la quantité d'octets à envoyer avant l'adresse : 
-[gef](https://github.com/hugsy/gef) nous permet de générer une chaine de caractères à envoyer comme entrée, puis quand le programme segfault on regarde ce qui s'est retrouve dans `rsp` et on retrouve l'offset dans la chaine : ![Après le buffer overflow](rsp.png) :
+[gef](https://github.com/hugsy/gef) 
+
+nous permet de générer une chaine de caractères à envoyer comme entrée, puis quand le programme segfault on regarde ce qui s'est retrouve dans `rsp` et on retrouve l'offset dans la chaine : 
+![Après le buffer overflow](rsp.png) :
+
 ```
 gef➤  pattern search haaaaaaaiaaaaaaajaaaaaaakaaaaaaalaaaaaaamaaaaaaana
 [+] Searching for '616e616161616161616d616161616161616c616161616161616b616161616161616a61616161616161696161616161616168'/'686161616161616169616161616161616a616161616161616b616161616161616c616161616161616d616161616161616e61' with period=8
