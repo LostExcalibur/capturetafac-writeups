@@ -5,11 +5,13 @@ Pour ce challenge, vous devez arriver à destination, mais le GPS ne semble pas
 
 ## Résolution
 On reçoit uniquement un fichier compilé, voyons voir comment il se décompile : 
+
 ![Fichier décompilé](decompiled.png).
 
 On a un buffer de 48 octets, et un appel à `gets`. Buffer overflow donc.
 
 Qu'en faire ? Heureusement on voit qu'il y a une autre fonction que `main`, `muflin` : 
+
 ![La fonction muflin](muflin.png)
 
 qui nous donne une shell. Le plan d'action est simple, il s'agit d'un simple ret2win (clin d'oeil le nom du challenge).
